@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-     public float speed = 1f;
+    public float speed = 1f;
+    private new Camera camera;
+    
     void Start()
     {
-        
+        camera = Camera.main;
     }
 
     // Update is called once per frame
@@ -15,22 +17,27 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.W))
         {
-            transform.position += new Vector3(0,0, speed * Time.deltaTime);
+            //transform.position += new Vector3(0,0, speed * Time.deltaTime);
+            transform.position += camera.transform.forward * Time.deltaTime * speed;
+
         }
 
         if (Input.GetKey(KeyCode.S))
         {
-            transform.position += new Vector3(0,0, -speed * Time.deltaTime);
+            //transform.position += new Vector3(0,0, -speed * Time.deltaTime);
+            transform.position += -camera.transform.forward * Time.deltaTime * speed;
         }
 
         if (Input.GetKey(KeyCode.D))
         {
-            transform.position += new Vector3(Time.deltaTime * speed,0,0);
+            //transform.position += new Vector3(Time.deltaTime * speed,0,0);
+            transform.position += camera.transform.right * Time.deltaTime * speed;
         }
 
         if (Input.GetKey(KeyCode.A))
         {
-            transform.position += new Vector3(Time.deltaTime * -speed,0,0);
+            //transform.position += new Vector3(Time.deltaTime * -speed,0,0);
+            transform.position += -camera.transform.right * Time.deltaTime * speed;
         }
     }
 
