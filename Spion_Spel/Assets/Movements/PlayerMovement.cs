@@ -18,26 +18,26 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKey(KeyCode.W))
         {
             //transform.position += new Vector3(0,0, speed * Time.deltaTime);
-            transform.position += camera.transform.forward * Time.deltaTime * speed;
+            transform.position += transform.forward * Time.deltaTime * speed;
 
         }
 
         if (Input.GetKey(KeyCode.S))
         {
             //transform.position += new Vector3(0,0, -speed * Time.deltaTime);
-            transform.position += -camera.transform.forward * Time.deltaTime * speed;
+            transform.position += -transform.forward * Time.deltaTime * speed;
         }
 
         if (Input.GetKey(KeyCode.D))
         {
             //transform.position += new Vector3(Time.deltaTime * speed,0,0);
-            transform.position += camera.transform.right * Time.deltaTime * speed;
+            transform.position += transform.right * Time.deltaTime * speed;
         }
 
         if (Input.GetKey(KeyCode.A))
         {
             //transform.position += new Vector3(Time.deltaTime * -speed,0,0);
-            transform.position += -camera.transform.right * Time.deltaTime * speed;
+            transform.position += -transform.right * Time.deltaTime * speed;
         }
     }
 

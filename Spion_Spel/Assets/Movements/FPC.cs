@@ -4,23 +4,32 @@ using UnityEngine;
 
 public class FPC : MonoBehaviour
 {
+    public Transform player;
+    public float mouseSensitvity = 2f;
+    float cameraVerticalRotation = 0f;
 
-    private float x;
-    private float y;
-    public float sensitivity = -1f; 
-    private Vector3 rotate;
+    bool lockedCurser = true;
+
+   
     // Start is called before the first frame update
     void Start()
     {
+        Cursor.visible = false; 
         Cursor.lockState = CursorLockMode.Locked;
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        y = Input.GetAxis("Mouse X");
-        x = Input.GetAxis("Mouse Y");
-        rotate = new Vector3(x, y * sensitivity, 0);
-        transform.eulerAngles = transform.eulerAngles - rotate;
+        float inputX = Input.GetAxis("Mouse X") * mouseSensitvity;
+        float inputY = Input.GetAxis("Mouse Y") * mouseSensitvity;
+
+        cameraVerticalRotation -= inputY;
+        cameraVerticalRotation= Mathf.Clamp(cameraVerticalRotation, -90f, 90f);
+        transform.localEulerAngles = Vector3.right * cameraVerticalRotation;
+
+        player.Rotate(Vector3.up * inputX);
+
     }
 }
