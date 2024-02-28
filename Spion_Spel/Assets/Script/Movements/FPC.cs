@@ -8,8 +8,6 @@ public class FPC : MonoBehaviour
     public float mouseSensitvity = 2f;
     float cameraVerticalRotation = 0f;
 
-    bool lockedCurser = true;
-
    
     // Start is called before the first frame update
     void Start()
