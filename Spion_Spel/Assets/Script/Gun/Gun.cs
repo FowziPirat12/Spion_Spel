@@ -1,31 +1,59 @@
-using UnityEngine.Events;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Gun : MonoBehaviour
 {
-    public UnityEvent onGunShoot;
-    public float fireCooldown;
-
+    Reload reload;
+    public GunTyps gun;
+    public int currentAmmo;
+    public int magSize;
+    public int mags;
+    public TMP_Text ammo;
+    public float fireRate;
+    public GameObject spawnPos;
+    public GameObject bulletPrefab;
     public bool automatic;
-
-    private float currentCooldown;
+    public bool reloading;
+    private float timer;
     // Start is called before the first frame update
     void Start()
     {
-        currentCooldown = fireCooldown;
+        reload = GameObject.FindGameObjectWithTag("Player").GetComponent<Reload>();
+        mags = 1;
+        currentAmmo = gun.currentAmmo;
+        magSize = gun.magSize;
+        ammo.text = $"{currentAmmo}/{magSize}";
+        fireRate = gun.fireRate;
+        automatic = gun.automatic;
+        timer = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(Input.GetKeyDown(KeyCode.R) && !reloading && mags > 0)
+        {
+            reloading = true;
+            reload.reloadTime = gun.reloadTime;
+            currentAmmo = reload.Reloading(magSize);
+            reloading = false;
+            mags--;
+        }
+        
         if(automatic)
         {
-            if(Input.GetMouseButton(0))
+            if(Input.GetMouseButton(0) && currentAmmo > 0 && !reloading)
             {
-                if(currentCooldown <= 0f)
+                if(timer >= fireRate)
                 {
-                    onGunShoot.Invoke();
-                    currentCooldown = fireCooldown;
+                    timer = 0;
+                    GameObject go = Instantiate(bulletPrefab, spawnPos.transform.position, spawnPos.transform.rotation);
+                    go.GetComponent<Bullet>().speed = gun.speed;
+                    go.GetComponent<Bullet>().maxDistance = gun.maxDistance;
+                    go.GetComponent<Bullet>().bulletDmg = gun.damage;
+                    go.SetActive(true);
+                    currentAmmo--;
                 }
             }
         }
@@ -33,14 +61,20 @@ public class Gun : MonoBehaviour
         {
             if(Input.GetMouseButtonDown(0))
             {
-                if(currentCooldown <= 0f)
+                
+                if(timer >= fireRate && currentAmmo > 0 && !reloading)
                 {
-                    onGunShoot.Invoke();
-                    currentCooldown = fireCooldown;
+                    timer = 0;
+                    GameObject go = Instantiate(bulletPrefab, spawnPos.transform.position, spawnPos.transform.rotation);
+                    go.GetComponent<Bullet>().speed = gun.speed;
+                    go.GetComponent<Bullet>().maxDistance = gun.maxDistance;
+                    go.GetComponent<Bullet>().bulletDmg = gun.damage;
+                    go.SetActive(true);
+                    currentAmmo--;
                 }
             }
         }
-        currentCooldown -= Time.deltaTime;
+        timer += Time.deltaTime;
+        if(!reloading) ammo.text = $"{mags}  {currentAmmo}/{magSize}";
     }
-    
 }
