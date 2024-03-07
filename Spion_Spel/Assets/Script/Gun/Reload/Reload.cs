@@ -5,24 +5,38 @@ using UnityEngine;
 
 public class Reload : MonoBehaviour
 {
+    public Gun gun;
     public int maxCarry;
     public float reloadTime;
-    public TMP_Text text;
+    public bool reloading;
     public float timer;
     // Start is called before the first frame update
     void Start()
     {
-        
+        reloading = false;
+        gun = GameObject.FindGameObjectWithTag("Gun").GetComponent<Gun>();
     }
 
-    public int Reloading(int ammo)
+    void Update()
     {
-        text.text = "Reloading";
-        if(reloadTime > timer)
-        {
+        if(reloadTime > timer && reloading){
             timer += Time.deltaTime;
         }
+        else if(timer > reloadTime)
+        {
+            reloading = true;
+        }
+        if(!reloading && timer > reloadTime)
+        {
+            reloading = false;
+            Reloading(maxCarry);
+        }
+    }
+
+    public void Reloading(int ammo)
+    {
         timer = 0;
-        return ammo;
+        gun.currentAmmo = ammo;
+        gun.Reloading();
     }
 }

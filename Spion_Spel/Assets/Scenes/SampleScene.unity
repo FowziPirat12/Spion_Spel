@@ -976,9 +976,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f42eaa962f680e34c9b3bb678b2dcbb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gun: {fileID: 0}
   maxCarry: 0
   reloadTime: 0
-  text: {fileID: 246304499}
+  reloading: 0
   timer: 0
 --- !u!1 &863559568
 GameObject:
@@ -2047,6 +2048,10 @@ PrefabInstance:
       objectReference: {fileID: 246304499}
     - target: {fileID: 5332516262968385354, guid: d36d0d048ae173842b0f4839f4312784, type: 3}
       propertyPath: m_Name
+      value: Gun
+      objectReference: {fileID: 0}
+    - target: {fileID: 5332516262968385354, guid: d36d0d048ae173842b0f4839f4312784, type: 3}
+      propertyPath: m_TagString
       value: Gun
       objectReference: {fileID: 0}
     - target: {fileID: 6444404459194402533, guid: d36d0d048ae173842b0f4839f4312784, type: 3}

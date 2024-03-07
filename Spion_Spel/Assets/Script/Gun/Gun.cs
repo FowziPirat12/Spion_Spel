@@ -1,4 +1,5 @@
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -36,9 +37,10 @@ public class Gun : MonoBehaviour
         {
             reloading = true;
             reload.reloadTime = gun.reloadTime;
-            currentAmmo = reload.Reloading(magSize);
-            reloading = false;
+            reload.maxCarry = magSize;
+            ammo.text = "Reloading";
             mags--;
+            reload.reloading = true;
         }
         
         if(automatic)
@@ -76,5 +78,9 @@ public class Gun : MonoBehaviour
         }
         timer += Time.deltaTime;
         if(!reloading) ammo.text = $"{mags}  {currentAmmo}/{magSize}";
+    }
+    public void Reloading()
+    {
+        reloading = false;
     }
 }
