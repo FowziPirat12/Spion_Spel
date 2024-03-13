@@ -56,6 +56,16 @@ public class PlayerMovement : MonoBehaviour
             transform.position = new Vector3(transform.position.x, transform.position.y +0.5f, transform.position.z);
             speed *= 2f;
         }
+         if (Input.GetKeyDown(KeyCode.LeftShift)) 
+        {
+            speed *= 1.3f;
+        }
+
+        if (Input.GetKeyUp(KeyCode.LeftShift)) 
+        {
+            speed /= 1.3f;
+        }
+
     }
 
 }
