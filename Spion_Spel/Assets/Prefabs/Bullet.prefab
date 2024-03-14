@@ -21,7 +21,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &3938218265998827337
 Transform:
   m_ObjectHideFlags: 0
@@ -130,7 +130,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
@@ -178,7 +178,7 @@ TrailRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Time: 0.1
-  m_PreviewTimeScale: 1
+  m_PreviewTimeScale: 0
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -260,7 +260,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2f2575b80ae22a44be14133fe0250c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entity: {fileID: 0}
   myRb: {fileID: 3967327727095357572}
   speed: 1000
-  maxDistance: 0
+  bulletDmg: 0
+  range: 0

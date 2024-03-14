@@ -4,16 +4,15 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public Entity entity;
     public Rigidbody myRb;
     public float speed;
     public float bulletDmg;
-    public float maxDistance;
+    public float range;
     // Start is called before the first frame update
     void Start()
     {
         myRb.AddForce(transform.forward * speed);
-        Destroy(this.gameObject, maxDistance);
+        Destroy(this.gameObject, range);
     }
 
     // Update is called once per frame

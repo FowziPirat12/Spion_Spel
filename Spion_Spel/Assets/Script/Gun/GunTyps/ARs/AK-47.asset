@@ -15,9 +15,11 @@ MonoBehaviour:
   name: AK-47
   damage: 10
   speed: 1000
-  maxDistance: 1.5
+  range: 1.5
   currentAmmo: 30
   magSize: 30
   fireRate: 0.3
   reloadTime: 2.8
   automatic: 1
+  multiShot: 1
+  shoots: 5

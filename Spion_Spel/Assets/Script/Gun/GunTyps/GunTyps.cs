@@ -11,7 +11,7 @@ public class GunTyps : ScriptableObject
     [Header("shooting")]
     public float damage;
     public float speed;
-    public float maxDistance;
+    public float range;
 
     [Header("Reloading")]
     public int currentAmmo;
@@ -21,4 +21,8 @@ public class GunTyps : ScriptableObject
 
     [Header("Automatic")]
     public bool automatic;
+    
+    [Header("Typ")]
+    public bool multiShot;
+    public int shoots;
 }
