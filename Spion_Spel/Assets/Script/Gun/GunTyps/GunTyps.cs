@@ -25,4 +25,5 @@ public class GunTyps : ScriptableObject
     [Header("Typ")]
     public bool multiShot;
     public int shoots;
+    public bool test;
 }

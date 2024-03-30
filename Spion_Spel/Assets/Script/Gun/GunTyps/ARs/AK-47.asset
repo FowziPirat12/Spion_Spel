@@ -16,10 +16,11 @@ MonoBehaviour:
   damage: 10
   speed: 1000
   range: 1.5
-  currentAmmo: 30
-  magSize: 30
+  currentAmmo: 900
+  magSize: 900
   fireRate: 0.3
   reloadTime: 2.8
   automatic: 1
-  multiShot: 1
-  shoots: 5
+  multiShot: 0
+  shoots: 0
+  test: 0

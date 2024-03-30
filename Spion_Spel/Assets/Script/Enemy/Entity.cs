@@ -8,7 +8,7 @@ public class Entity : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        hp = 20;
+        hp = 2000;
     }
 
     // Update is called once per frame
@@ -21,6 +21,7 @@ public class Entity : MonoBehaviour
     public void TakeDamage(float dmg)
     {
         hp -= dmg;
+        Debug.Log($"Hit: {hp}");
     }
 
     

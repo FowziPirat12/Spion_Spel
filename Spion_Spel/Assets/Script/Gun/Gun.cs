@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class Gun : MonoBehaviour
 {
+    private Animator rAnimation;
     public GunTyps gun;
     public int currentAmmo;
     public int magSize;
@@ -19,11 +20,13 @@ public class Gun : MonoBehaviour
     public bool automatic;
     public bool multiShot;
     public bool reloading;
+    public bool test;
     private float timer;
     public float spin;
     // Start is called before the first frame update
     void Start()
     {
+        rAnimation = GetComponent<Animator>();
         mags = 100;
         currentAmmo = gun.currentAmmo;
         magSize = gun.magSize;
@@ -33,6 +36,7 @@ public class Gun : MonoBehaviour
         automatic = gun.automatic;
         multiShot = gun.multiShot;
         reloadTime = gun.reloadTime;
+        test = gun.test;
         timer = 0;
     }
 
@@ -51,7 +55,7 @@ public class Gun : MonoBehaviour
         
         if(automatic)
         {
-            if(Input.GetMouseButton(0) && currentAmmo > 0 && !reloading)
+            if(Input.GetMouseButton(0) && currentAmmo > 0 && !reloading || test)
             {
                 if(timer >= fireRate)
                 {
@@ -127,7 +131,8 @@ public class Gun : MonoBehaviour
     }
     IEnumerator Reloading()
     {
-        yield return new WaitForSeconds(reloadTime);
+        rAnimation.SetTrigger("Spin");
+        yield return new WaitForSeconds(1);
         currentAmmo = magSize;
         reloading = false;
     }
