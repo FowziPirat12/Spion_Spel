@@ -10,7 +10,6 @@ public class GunTyps : ScriptableObject
 
     [Header("shooting")]
     public float damage;
-    public float speed;
     public float range;
 
     [Header("Reloading")]
@@ -25,5 +24,4 @@ public class GunTyps : ScriptableObject
     [Header("Typ")]
     public bool multiShot;
     public int shoots;
-    public bool test;
 }

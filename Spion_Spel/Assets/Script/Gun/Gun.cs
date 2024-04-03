@@ -1,13 +1,16 @@
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
+using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Gun : MonoBehaviour
 {
     private Animator rAnimation;
+    public GameObject muzzleFlash;
     public GunTyps gun;
+    public float damage;
+    public float range;
     public int currentAmmo;
     public int magSize;
     public int mags;
@@ -15,19 +18,21 @@ public class Gun : MonoBehaviour
     public float fireRate;
     public float reloadTime;
     public int shoots;
-    public GameObject spawnPos;
-    public GameObject bulletPrefab;
     public bool automatic;
     public bool multiShot;
     public bool reloading;
-    public bool test;
     private float timer;
-    public float spin;
+    public GameObject impactEffect;
+
+    public Camera fpsCam;
+
     // Start is called before the first frame update
     void Start()
     {
-        rAnimation = GetComponent<Animator>();
         mags = 100;
+        rAnimation = GetComponent<Animator>();
+        damage = gun.damage;
+        range = gun.range;
         currentAmmo = gun.currentAmmo;
         magSize = gun.magSize;
         ammo.text = $"{currentAmmo}/{magSize}";
@@ -36,8 +41,8 @@ public class Gun : MonoBehaviour
         automatic = gun.automatic;
         multiShot = gun.multiShot;
         reloadTime = gun.reloadTime;
-        test = gun.test;
         timer = 0;
+        muzzleFlash.SetActive(false);
     }
 
     // Update is called once per frame
@@ -52,82 +57,70 @@ public class Gun : MonoBehaviour
             mags--;
             gameObject.transform.Rotate(-1, 0, 0);
         }
-        
         if(automatic)
         {
-            if(Input.GetMouseButton(0) && currentAmmo > 0 && !reloading || test)
+            if(Input.GetMouseButton(0) && currentAmmo > 0 && !reloading)
             {
                 if(timer >= fireRate)
                 {
                      if(!multiShot)
                     {
                         timer = 0;
-                        GameObject go = Instantiate(bulletPrefab, spawnPos.transform.position, spawnPos.transform.rotation);
-                        go.GetComponent<Bullet>().speed = gun.speed;
-                        go.GetComponent<Bullet>().range = gun.range;
-                        go.GetComponent<Bullet>().bulletDmg = gun.damage;
-                        go.SetActive(true);
+                        Shoot();
                         currentAmmo--;
                     }
-                    if(multiShot)
+                    /*if(multiShot)
                     {
                     timer = 0;
-                    GameObject[] go = new GameObject[shoots];
-                    for(int i = 0; i < shoots; i++)
-                    {
-                        go[i] = Instantiate(bulletPrefab, spawnPos.transform.position + new Vector3(Random.Range(0f,0.5f),Random.Range(0f,0.5f),Random.Range(0f,0.5f)), spawnPos.transform.rotation);
-                        go[i].GetComponent<Bullet>().speed = gun.speed;
-                        go[i].GetComponent<Bullet>().range = gun.range;
-                        go[i].GetComponent<Bullet>().bulletDmg = gun.damage;
-                    }
-                    foreach(GameObject i in go) i.SetActive(true);
+                    
                     currentAmmo -= shoots;
-                    }
+                    }*/
                 }
             }
         }
         else
         {
-            if(Input.GetMouseButtonDown(0))
+            if(Input.GetMouseButtonDown(0) && currentAmmo > 0 && !reloading)
             {
-                
-                if(timer >= fireRate && currentAmmo > 0 && !reloading)
+                if(timer >= fireRate)
                 {
                      if(!multiShot)
                     {
                         timer = 0;
-                        GameObject go = Instantiate(bulletPrefab, spawnPos.transform.position, spawnPos.transform.rotation);
-                        go.GetComponent<Bullet>().speed = gun.speed;
-                        go.GetComponent<Bullet>().range = gun.range;
-                        go.GetComponent<Bullet>().bulletDmg = gun.damage;
-                        go.SetActive(true);
+                        Shoot();
                         currentAmmo--;
                     }
-                    if(multiShot)
+                    /*if(multiShot)
                     {
                     timer = 0;
-                    GameObject[] go = new GameObject[shoots];
-                    for(int i = 0; i < shoots; i++)
-                    {
-                        go[i] = Instantiate(bulletPrefab, spawnPos.transform.position + new Vector3(Random.Range(0f,0.5f),Random.Range(0f,0.5f),Random.Range(0f,0.5f)), spawnPos.transform.rotation);
-                        go[i].GetComponent<Bullet>().speed = gun.speed;
-                        go[i].GetComponent<Bullet>().range = gun.range;
-                        go[i].GetComponent<Bullet>().bulletDmg = gun.damage;
-                    }
-                    foreach(GameObject i in go) i.SetActive(true);
+                    
                     currentAmmo -= shoots;
-                    }
+                    }*/
                 }
             }
         }
         timer += Time.deltaTime;
         if(!reloading) ammo.text = $"{mags}  {currentAmmo}/{magSize}";
-        if(reloading)
+    }
+
+    void Shoot()
+    {
+        StartCoroutine(MuzzleFlash());
+        RaycastHit hit;
+        if(Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range))
         {
-            //gameObject.transform.Rotate(spin * Time.deltaTime, 0, 0, Space.Self);
-            transform.rotation = Quaternion.FromToRotation(transform.rotation.ToEuler(), new Vector3(90,0,0)) ;
+            rAnimation.SetTrigger("Recoil");
+            Entity enemy = hit.transform.GetComponent<Entity>();
+
+            if(enemy != null)
+            {
+                enemy.hp -= 10;
+                Debug.Log(enemy.hp);
+            }
+
+            GameObject impactGO = Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
+            Destroy(impactGO, .5f);
         }
-        if(transform.rotation.x == 90 && reloading) Debug.Log("90");
     }
     IEnumerator Reloading()
     {
@@ -136,4 +129,11 @@ public class Gun : MonoBehaviour
         currentAmmo = magSize;
         reloading = false;
     }
+
+    IEnumerator MuzzleFlash()
+    {
+        muzzleFlash.SetActive(true);
+        yield return new WaitForSeconds(0.1f);
+        muzzleFlash.SetActive(false);
+    }   
 }
