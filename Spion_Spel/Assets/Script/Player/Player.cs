@@ -28,5 +28,14 @@ public class Player : MonoBehaviour
             playerHP -= 10;
             healthBar.SetHealth(playerHP);
         }
+
+    }
+
+    private void OnCollisionEnter(Collision collision) 
+    {
+        if (collision.gameObject.tag == "Enemy"){
+            playerHP -= 10;
+            healthBar.SetHealth(playerHP);
+        }    
     }
 }
