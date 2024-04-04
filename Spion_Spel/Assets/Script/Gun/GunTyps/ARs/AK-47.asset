@@ -19,6 +19,6 @@ MonoBehaviour:
   magSize: 10
   fireRate: 0.3
   reloadTime: 2.8
-  automatic: 1
+  automatic: 0
   multiShot: 0
   shoots: 0
