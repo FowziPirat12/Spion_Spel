@@ -7,6 +7,7 @@ TagManager:
   - HealthBar
   - Enemy
   - Gun
+  - Recoil
   layers:
   - Default
   - TransparentFX

@@ -15,10 +15,11 @@ MonoBehaviour:
   name: AK-47
   damage: 10
   range: 100
-  currentAmmo: 10
-  magSize: 10
-  fireRate: 0.3
+  recoil: {x: -5, y: 10, z: 0.35}
+  currentAmmo: 100
+  magSize: 100
+  fireRate: 0.1
   reloadTime: 2.8
-  automatic: 0
+  automatic: 1
   multiShot: 0
   shoots: 0
