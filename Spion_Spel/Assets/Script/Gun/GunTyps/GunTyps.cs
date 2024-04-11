@@ -11,6 +11,7 @@ public class GunTyps : ScriptableObject
     [Header("shooting")]
     public float damage;
     public float range;
+    public Vector3 recoil;
 
     [Header("Reloading")]
     public int currentAmmo;

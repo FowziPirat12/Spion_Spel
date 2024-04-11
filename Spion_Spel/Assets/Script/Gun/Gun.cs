@@ -24,6 +24,7 @@ public class Gun : MonoBehaviour
     private float timer;
 
     public GameObject impactEffect;
+    public GameObject bloodEffect;
     public Camera fpsCam;
 
     private Recoil recoilScript;
@@ -31,7 +32,7 @@ public class Gun : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        recoilScript = transform.Find("CameraRot/CameraRecoil").GetComponent<Recoil>();
+        recoilScript = GameObject.FindGameObjectWithTag("Recoil").GetComponent<Recoil>();
         mags = 100;
         rAnimation = GetComponent<Animator>();
         damage = gun.damage;
@@ -112,16 +113,20 @@ public class Gun : MonoBehaviour
         RaycastHit hit;
         if(Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range))
         {
-            rAnimation.SetTrigger("Recoil");
+            //rAnimation.SetTrigger("Recoil");
             Entity enemy = hit.transform.GetComponent<Entity>();
             if(enemy != null)
             {
+                GameObject impactGO = Instantiate(bloodEffect, hit.point, Quaternion.LookRotation(hit.normal));
+                Destroy(impactGO, .5f);
                 enemy.hp -= 10;
                 Debug.Log(enemy.hp);
             }
-
-            GameObject impactGO = Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
-            Destroy(impactGO, .5f);
+            else
+            {
+                GameObject impactGO = Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
+                Destroy(impactGO, .5f);   
+            }
         }
         recoilScript.recoilFire();
     }
