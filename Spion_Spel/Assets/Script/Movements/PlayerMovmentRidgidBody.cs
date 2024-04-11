@@ -8,28 +8,34 @@ public class PlayerMovmentRidgidBody : MonoBehaviour
     float speed = 10f;
     public Rigidbody player;
     public Vector3 movment;
+
     void Start()
     {
         player = this.GetComponent<Rigidbody>();
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKey(KeyCode.W))
-        {
-            
-        }
+
     }
     void FixedUpdate()
     {
-        RidgidMovment(movment);
+        //RidgidMovment(movment);
 
+        float horizontal = Input.GetAxis("Horizontal");
+        float vertical = Input.GetAxis("Vertical");
+
+        Vector3 move = new Vector3(horizontal, 0, vertical);
+        
+        player.velocity = move * speed;
     }
-    void RidgidMovment(Vector3 direction)
+    
+    /*void RidgidMovment(Vector3 direction)
     {
         Vector3 moveDirection = HandleInput();
-        player.MovePosition(transform.position + (moveDirection));
+        player.MovePosition(transform.position + moveDirection);
     }
 
     Vector3 HandleInput(){
@@ -37,7 +43,7 @@ public class PlayerMovmentRidgidBody : MonoBehaviour
         if (Input.GetKey(KeyCode.W) )
         {
             //transform.position += new Vector3(0,0, speed * Time.deltaTime);
-            direction += transform.forward ;
+            direction += transform.forward;
         }
 
         if (Input.GetKey(KeyCode.S))
@@ -58,7 +64,7 @@ public class PlayerMovmentRidgidBody : MonoBehaviour
             direction  += -transform.right;
         }
 
-        return direction.normalized  * Time.deltaTime * speed;
-    }
+        return direction.normalized * Time.deltaTime * speed;
+    }*/
 
 }
