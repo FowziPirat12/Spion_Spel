@@ -7,7 +7,6 @@ public class FPC : MonoBehaviour
     public Transform player;
     public float mouseSensitvity = 2f;
     float cameraVerticalRotation = 0f;
-    bool on;
 
    
     // Start is called before the first frame update
@@ -15,24 +14,20 @@ public class FPC : MonoBehaviour
     {
         Cursor.visible = false; 
         Cursor.lockState = CursorLockMode.Locked;
-        on = true;
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.C)) on = !on;
-        if(on)
-        {
-            float inputX = Input.GetAxis("Mouse X") * mouseSensitvity;
-            float inputY = Input.GetAxis("Mouse Y") * mouseSensitvity;
+        float inputX = Input.GetAxis("Mouse X") * mouseSensitvity;
+        float inputY = Input.GetAxis("Mouse Y") * mouseSensitvity;
 
-            cameraVerticalRotation -= inputY;
-            cameraVerticalRotation= Mathf.Clamp(cameraVerticalRotation, -90f, 90f);
-            transform.localEulerAngles = Vector3.right * cameraVerticalRotation;
+        cameraVerticalRotation -= inputY;
+        cameraVerticalRotation= Mathf.Clamp(cameraVerticalRotation, -90f, 90f);
+        transform.localEulerAngles = Vector3.right * cameraVerticalRotation;
 
-            player.Rotate(Vector3.up * inputX);
-        }
+        player.Rotate(Vector3.up * inputX);
 
     }
 }
