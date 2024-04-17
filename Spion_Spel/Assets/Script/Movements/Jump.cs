@@ -16,9 +16,9 @@ public class Jump : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && rb.velocity.y == 0)
+        if(Input.GetKey(KeyCode.Space) && rb.velocity.y == 0)
         {
-            rb.AddForce(Vector3.up * 300); 
+            rb.AddForce(Vector3.up * 1200); 
         }
     }
 }
