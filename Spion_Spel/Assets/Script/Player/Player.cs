@@ -33,9 +33,16 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision) 
     {
+        Debug.Log("hit");
         if (collision.gameObject.tag == "Enemy"){
             playerHP -= 10;
             healthBar.SetHealth(playerHP);
-        }    
+
+            if (playerHP <= 0)
+            {
+                Destroy(gameObject);
+            }
+        }   
+
     }
 }

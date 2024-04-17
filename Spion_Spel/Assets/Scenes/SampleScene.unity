@@ -482,6 +482,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5dbba4a42d11824d906f993e5ca3794, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EnemyHealth: 100
   Enemy: {fileID: 108634418}
   Player: {fileID: 706308612}
 --- !u!195 &108634418
@@ -783,7 +784,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 706308607}
-  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!4 &706308612
 Transform:
   m_ObjectHideFlags: 0
@@ -1374,10 +1375,10 @@ RectTransform:
   - {fileID: 2060485106}
   m_Father: {fileID: 863559572}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 125.47, y: 18.522}
-  m_SizeDelta: {x: 250.9473, y: 37.0446}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 125.47, y: -23}
+  m_SizeDelta: {x: 250.9473, y: 37.044617}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1509544558
 MonoBehaviour:
