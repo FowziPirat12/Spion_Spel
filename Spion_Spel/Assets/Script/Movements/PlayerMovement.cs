@@ -2,69 +2,81 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : MonoBehaviour
 {
-    public float speed = 1f;
-   
-    private new Camera camera;
+    public Camera playerCamera;
+    public float walkSpeed = 20f;
+    public float runSpeed = 12f;
+    public float jumpPower = 7f;
+    public float gravity = 10f;
+    public float lookSpeed = 2f;
+    public float lookXLimit = 45f;
+    public float defaultHeight = 2f;
+    public float crouchHeight = 1f;
+    public float crouchSpeed = 3f;
 
-    private Vector3 crouchScale = new Vector3(1, 0.5f, 1); 
-    private Vector3 playerscale = new Vector3(1, 1f, 1);
-    
+    private Vector3 moveDirection = Vector3.zero;
+    private float rotationX = 0;
+    private CharacterController characterController;
+
+    private bool canMove = true;
+    private bool move = true;
     void Start()
     {
-        camera = Camera.main;
+        characterController = GetComponent<CharacterController>();
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.W) )
+        if(Input.GetKeyDown(KeyCode.P)) move = !move;
+        Vector3 forward = transform.TransformDirection(Vector3.forward);
+        Vector3 right = transform.TransformDirection(Vector3.right);
+
+        bool isRunning = Input.GetKey(KeyCode.LeftShift);
+        float curSpeedX = canMove ? (isRunning ? runSpeed : walkSpeed) * Input.GetAxis("Vertical") : 0;
+        float curSpeedY = canMove ? (isRunning ? runSpeed : walkSpeed) * Input.GetAxis("Horizontal") : 0;
+        float movementDirectionY = moveDirection.y;
+        moveDirection = (forward * curSpeedX) + (right * curSpeedY);
+
+        if (Input.GetButton("Jump") && canMove && characterController.isGrounded)
         {
-            //transform.position += new Vector3(0,0, speed * Time.deltaTime);
-            transform.position += transform.forward * Time.deltaTime * speed;
+            moveDirection.y = jumpPower;
+        }
+        else
+        {
+            moveDirection.y = movementDirectionY;
         }
 
-        if (Input.GetKey(KeyCode.S))
+        if (!characterController.isGrounded)
         {
-            //transform.position += new Vector3(0,0, -speed * Time.deltaTime);
-            transform.position += -transform.forward * Time.deltaTime * (speed * 0.5f);
+            moveDirection.y -= gravity * Time.deltaTime;
         }
 
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.LeftControl) && canMove)
         {
-            //transform.position += new Vector3(Time.deltaTime * speed,0,0);
-            transform.position += transform.right * Time.deltaTime * (speed * 0.7f);
+            characterController.height = crouchHeight;
+            walkSpeed = crouchSpeed;
+            runSpeed = crouchSpeed;
+
+        }
+        else
+        {
+            characterController.height = defaultHeight;
+            walkSpeed = 6f;
+            runSpeed = 12f;
         }
 
-        if (Input.GetKey(KeyCode.A))
-        {
-            //transform.position += new Vector3(Time.deltaTime * -speed,0,0);
-            transform.position += -transform.right * Time.deltaTime * (speed * 0.7f);
-        }
-        
-        if (Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            speed *= 1.5f;
-        }
-        if (Input.GetKeyUp(KeyCode.LeftShift))
-        {
-            speed /= 1.5f;
-        }
+        characterController.Move(moveDirection * Time.deltaTime);
 
-         if (Input.GetKeyDown(KeyCode.LeftControl)) 
+        if (canMove && move)
         {
-            transform.localScale = crouchScale;
-            transform.position = new Vector3(transform.position.x, transform.position.y -0.5f, transform.position.z);
-            speed *= 0.5f;
-        }
-
-        if (Input.GetKeyUp(KeyCode.LeftControl)) 
-        {
-            transform.localScale = playerscale;
-            transform.position = new Vector3(transform.position.x, transform.position.y +0.5f, transform.position.z);
-            speed *= 2f;
+            rotationX += -Input.GetAxis("Mouse Y") * lookSpeed;
+            rotationX = Mathf.Clamp(rotationX, -lookXLimit, lookXLimit);
+            playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
+            transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * lookSpeed, 0);
         }
     }
-
 }

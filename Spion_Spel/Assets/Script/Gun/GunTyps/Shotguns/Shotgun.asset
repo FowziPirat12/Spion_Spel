@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8397810bce03e014b9181b20043bb361, type: 3}
-  m_Name: AK-47
+  m_Name: Shotgun
   m_EditorClassIdentifier: 
-  name: AK-47
-  damage: 10
-  range: 100
-  recoil: {x: -5, y: 10, z: 0.35}
+  name: Shotgun
+  damage: 30
+  range: 70
+  recoil: {x: -20, y: 30, z: 5}
   snappiness: 10
-  inaccutacyDistance: 1
-  currentAmmo: 100
-  magSize: 100
-  fireRate: 0.1
-  automatic: 1
-  shotgun: 0
-  bulletsPerShot: 1
+  inaccutacyDistance: 20
+  currentAmmo: 10
+  magSize: 10
+  fireRate: 0.4
+  automatic: 0
+  shotgun: 1
+  bulletsPerShot: 6

@@ -7,27 +7,28 @@ using UnityEngine;
 public class Gun : MonoBehaviour
 {
     private Animator rAnimation;
-    public GameObject muzzleFlash;
     public GunTyps gun;
+    public GameObject muzzleFlash;
+    public GameObject impactEffect;
+    public GameObject bloodEffect;
+    public GameObject bulletTrail;
+    public Transform muzzlePos;
+    public Camera fpsCam;
+    private Recoil recoilScript;
+    public TMP_Text ammo;
     public float damage;
     public float range;
     public int currentAmmo;
     public int magSize;
     public int mags;
-    public TMP_Text ammo;
     public float fireRate;
-    public float reloadTime;
-    public int shoots;
+    public float inaccutacyDistance;
+    public int bulletsPerShot;
     public bool automatic;
-    public bool multiShot;
+    public bool shotgun;
     public bool reloading;
     private float timer;
-
-    public GameObject impactEffect;
-    public GameObject bloodEffect;
-    public Camera fpsCam;
-
-    private Recoil recoilScript;
+    public float snappiness;
 
     // Start is called before the first frame update
     void Start()
@@ -41,10 +42,12 @@ public class Gun : MonoBehaviour
         magSize = gun.magSize;
         ammo.text = $"{currentAmmo}/{magSize}";
         fireRate = gun.fireRate;
-        shoots = gun.shoots;
+        snappiness = gun.snappiness;
+        recoilScript.snappiness = snappiness;
+        inaccutacyDistance = gun.inaccutacyDistance;
+        bulletsPerShot = gun.bulletsPerShot;
         automatic = gun.automatic;
-        multiShot = gun.multiShot;
-        reloadTime = gun.reloadTime;
+        shotgun = gun.shotgun;
         timer = 0;
         muzzleFlash.SetActive(false);
     }
@@ -67,18 +70,9 @@ public class Gun : MonoBehaviour
             {
                 if(timer >= fireRate)
                 {
-                     if(!multiShot)
-                    {
-                        timer = 0;
-                        Shoot();
-                        currentAmmo--;
-                    }
-                    /*if(multiShot)
-                    {
                     timer = 0;
-                    
-                    currentAmmo -= shoots;
-                    }*/
+                    Shoot();
+                    currentAmmo--;
                 }
             }
         }
@@ -88,18 +82,9 @@ public class Gun : MonoBehaviour
             {
                 if(timer >= fireRate)
                 {
-                     if(!multiShot)
-                    {
-                        timer = 0;
-                        Shoot();
-                        currentAmmo--;
-                    }
-                    /*if(multiShot)
-                    {
                     timer = 0;
-                    
-                    currentAmmo -= shoots;
-                    }*/
+                    Shoot();
+                    currentAmmo--;
                 }
             }
         }
@@ -111,24 +96,57 @@ public class Gun : MonoBehaviour
     {
         StartCoroutine(MuzzleFlash());
         RaycastHit hit;
-        if(Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range))
+        if(shotgun)
         {
-            //rAnimation.SetTrigger("Recoil");
-            Entity enemy = hit.transform.GetComponent<Entity>();
-            if(enemy != null)
+            for (int i = 0; i < bulletsPerShot; i++)
             {
-                GameObject impactGO = Instantiate(bloodEffect, hit.point, Quaternion.LookRotation(hit.normal));
-                Destroy(impactGO, .5f);
-                enemy.hp -= 10;
-                Debug.Log(enemy.hp);
-            }
-            else
-            {
-                GameObject impactGO = Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
-                Destroy(impactGO, .5f);   
+                Vector3 shootingDir = GetShootingDirection();
+                Debug.DrawRay(fpsCam.transform.position, shootingDir, Color.yellow);
+                if(Physics.Raycast(fpsCam.transform.position, shootingDir, out hit, range))
+                {
+                    Entity enemy = hit.transform.GetComponent<Entity>();
+                    if(enemy != null)
+                    {
+                        GameObject impactGO = Instantiate(bloodEffect, hit.point, Quaternion.LookRotation(hit.normal));
+                        Destroy(impactGO, .5f);
+                        enemy.hp -= 10;
+                        Debug.Log(enemy.hp);
+                    }
+                    else
+                    {
+                        GameObject impactGO = Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
+                        Destroy(impactGO, .5f);
+                    }
+                    //CreatTrail(hit.point);
+                }
+                else CreatTrail(fpsCam.transform.position + shootingDir * range);
             }
         }
-        recoilScript.recoilFire();
+        else
+        {
+            Debug.Log(muzzlePos.position);
+            Vector3 shootingDir = GetShootingDirection();
+            Debug.DrawRay(fpsCam.transform.position, shootingDir, Color.yellow);
+            if(Physics.Raycast(fpsCam.transform.position, shootingDir, out hit, range))
+            {
+                Entity enemy = hit.transform.GetComponent<Entity>();
+                if(enemy != null)
+                {
+                    GameObject impactGO = Instantiate(bloodEffect, hit.point, Quaternion.LookRotation(hit.normal));
+                    Destroy(impactGO, .5f);
+                    enemy.hp -= 10;
+                    Debug.Log(enemy.hp);
+                }
+                else
+                {
+                    GameObject impactGO = Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
+                    Destroy(impactGO, .5f);   
+                }
+                //CreatTrail(hit.point);
+            }
+            //else CreatTrail(fpsCam.transform.position + shootingDir * range);
+        }
+        //recoilScript.recoilFire();
     }
     IEnumerator Reloading()
     {
@@ -143,5 +161,23 @@ public class Gun : MonoBehaviour
         muzzleFlash.SetActive(true);
         yield return new WaitForSeconds(0.1f);
         muzzleFlash.SetActive(false);
-    }   
+    }
+
+    Vector3 GetShootingDirection()
+    {
+        Vector3 targetPos = fpsCam.transform.position + fpsCam.transform.forward * range;
+        targetPos = new Vector3(
+            targetPos.x + Random.Range(-inaccutacyDistance, inaccutacyDistance),
+            targetPos.y + Random.Range(-inaccutacyDistance, inaccutacyDistance),
+            targetPos.z + Random.Range(-inaccutacyDistance, inaccutacyDistance)
+        );
+        Vector3 direction = targetPos - fpsCam.transform.forward;
+        return direction.normalized;
+    }
+    void CreatTrail(Vector3 end)
+    {
+        LineRenderer lr = Instantiate(bulletTrail).GetComponent<LineRenderer>();
+        lr.SetPositions(new Vector3[2] {muzzlePos.position, end});
+        Destroy(lr, 2f);
+    }
 }
