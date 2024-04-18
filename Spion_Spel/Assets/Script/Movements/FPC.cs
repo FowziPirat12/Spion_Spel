@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FPC : MonoBehaviour
 {
-    /*public Transform player;
+    public Transform player;
     public float mouseSensitvity = 2f;
     float cameraVerticalRotation = 0f;
     bool on;
@@ -34,5 +34,5 @@ public class FPC : MonoBehaviour
             player.Rotate(Vector3.up * inputX);
         }
 
-    }*/
+    }
 }

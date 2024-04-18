@@ -119,15 +119,15 @@ public class Gun : MonoBehaviour
                     }
                     //CreatTrail(hit.point);
                 }
-                else CreatTrail(fpsCam.transform.position + shootingDir * range);
+                //else CreatTrail(fpsCam.transform.position + shootingDir * range);
             }
         }
         else
         {
             Debug.Log(muzzlePos.position);
             Vector3 shootingDir = GetShootingDirection();
-            Debug.DrawRay(fpsCam.transform.position, shootingDir, Color.yellow);
-            if(Physics.Raycast(fpsCam.transform.position, shootingDir, out hit, range))
+            //Debug.DrawRay(fpsCam.transform.position, shootingDir, Color.yellow);
+            if(Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range))
             {
                 Entity enemy = hit.transform.GetComponent<Entity>();
                 if(enemy != null)
@@ -142,9 +142,9 @@ public class Gun : MonoBehaviour
                     GameObject impactGO = Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
                     Destroy(impactGO, .5f);   
                 }
-                //CreatTrail(hit.point);
+                CreatTrail(hit.point);
             }
-            //else CreatTrail(fpsCam.transform.position + shootingDir * range);
+            else CreatTrail(fpsCam.transform.position + shootingDir * range);
         }
         //recoilScript.recoilFire();
     }
