@@ -26,7 +26,7 @@ public class EnemyUI : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            EnemyHealth -= 1;
+            EnemyHealth -= 20;
             
             if (EnemyHealth <= 0)
             {
