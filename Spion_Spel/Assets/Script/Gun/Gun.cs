@@ -101,7 +101,6 @@ public class Gun : MonoBehaviour
             for (int i = 0; i < bulletsPerShot; i++)
             {
                 Vector3 shootingDir = GetShootingDirection();
-                Debug.DrawRay(fpsCam.transform.position, shootingDir, Color.yellow);
                 if(Physics.Raycast(fpsCam.transform.position, shootingDir, out hit, range))
                 {
                     Entity enemy = hit.transform.GetComponent<Entity>();
@@ -124,9 +123,7 @@ public class Gun : MonoBehaviour
         }
         else
         {
-            Debug.Log(muzzlePos.position);
             Vector3 shootingDir = GetShootingDirection();
-            //Debug.DrawRay(fpsCam.transform.position, shootingDir, Color.yellow);
             if(Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range))
             {
                 Entity enemy = hit.transform.GetComponent<Entity>();
@@ -146,7 +143,7 @@ public class Gun : MonoBehaviour
             }
             else CreatTrail(fpsCam.transform.position + shootingDir * range);
         }
-        //recoilScript.recoilFire();
+        recoilScript.recoilFire();
     }
     IEnumerator Reloading()
     {
