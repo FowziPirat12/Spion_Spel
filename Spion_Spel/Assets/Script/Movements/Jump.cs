@@ -18,7 +18,7 @@ public class Jump : MonoBehaviour
     {
         if(Input.GetKey(KeyCode.Space) && rb.velocity.y == 0)
         {
-            rb.AddForce(Vector3.up * 1200); 
+            rb.AddForce(Vector3.up * 300); 
         }
     }
 }
