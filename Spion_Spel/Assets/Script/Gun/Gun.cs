@@ -21,6 +21,7 @@ public class Gun : MonoBehaviour
     public int currentAmmo;
     public int magSize;
     public int mags;
+    public new int animation;
     public float fireRate;
     public float inaccutacyDistance;
     public int bulletsPerShot;
@@ -40,6 +41,7 @@ public class Gun : MonoBehaviour
         range = gun.range;
         currentAmmo = gun.currentAmmo;
         magSize = gun.magSize;
+        animation = gun.animation;
         ammo.text = $"{currentAmmo}/{magSize}";
         fireRate = gun.fireRate;
         snappiness = gun.snappiness;
@@ -116,9 +118,9 @@ public class Gun : MonoBehaviour
                         GameObject impactGO = Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
                         Destroy(impactGO, .5f);
                     }
-                    //CreatTrail(hit.point);
+                    CreatTrail(hit.point);
                 }
-                //else CreatTrail(fpsCam.transform.position + shootingDir * range);
+                else CreatTrail(fpsCam.transform.position + shootingDir * range);
             }
         }
         else
@@ -147,7 +149,8 @@ public class Gun : MonoBehaviour
     }
     IEnumerator Reloading()
     {
-        rAnimation.SetTrigger("Spin");
+        if(animation == 0) rAnimation.SetTrigger("Spin0");
+        else rAnimation.SetTrigger("Spin1");
         yield return new WaitForSeconds(1);
         currentAmmo = magSize;
         reloading = false;
@@ -175,6 +178,18 @@ public class Gun : MonoBehaviour
     {
         LineRenderer lr = Instantiate(bulletTrail).GetComponent<LineRenderer>();
         lr.SetPositions(new Vector3[2] {muzzlePos.position, end});
-        Destroy(lr, 2f);
+        StartCoroutine(FadeTrail(lr));
+    }
+
+    IEnumerator FadeTrail(LineRenderer lr)
+    {
+        float alpha = 1;
+        while (alpha > 0)
+        {
+            alpha -= Time.deltaTime / 0.3f;
+            lr.startColor = new Color(lr.startColor.r, lr.startColor.g, lr.startColor.b, alpha);
+            lr.endColor = new Color(lr.endColor.r, lr.endColor.g, lr.endColor.b, alpha);
+            yield return null;
+        }
     }
 }

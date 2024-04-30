@@ -463,7 +463,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 434f48faaf0e3054590bc0486f54b0e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gun: {fileID: 11400000, guid: 182a55c0616f3d54f9ec55e5b9488f45, type: 2}
+  gun: {fileID: 11400000, guid: 9cdda4e544a83684d871e5e9ab41905b, type: 2}
   muzzleFlash: {fileID: 8333490225269046754}
   impactEffect: {fileID: 5718853948431843555, guid: 87d8bdef5055f9f4e96d4889a3c0e4d3, type: 3}
   bloodEffect: {fileID: 3798789343081424786, guid: 3d4d6bf0e54144f4d92d8e6cfb9c05f4, type: 3}

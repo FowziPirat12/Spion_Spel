@@ -26,4 +26,5 @@ public class GunTyps : ScriptableObject
     [Header("Typ")]
     public bool shotgun;
     public int bulletsPerShot;
+    public int animation;
 }

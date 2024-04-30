@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Jump : MonoBehaviour
 {
+    public float jumpSpeed = 0;
 
     public Rigidbody rb;
     
@@ -18,7 +19,7 @@ public class Jump : MonoBehaviour
     {
         if(Input.GetKey(KeyCode.Space) && rb.velocity.y == 0)
         {
-            rb.AddForce(Vector3.up * 300); 
+            rb.AddForce(Vector3.up * jumpSpeed); 
         }
     }
 }

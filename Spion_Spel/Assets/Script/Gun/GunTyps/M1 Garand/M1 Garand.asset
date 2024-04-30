@@ -24,3 +24,4 @@ MonoBehaviour:
   automatic: 0
   shotgun: 0
   bulletsPerShot: 1
+  animation: 1
