@@ -18,15 +18,6 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.H) && playerHP + 10 <=100)
-        {
-            playerHP += 10;
-            healthBar.SetHealth(playerHP);
-        }
-        if(Input.GetKeyDown(KeyCode.J) && playerHP - 10 >=0)
-        {
-            playerHP -= 10;
-            healthBar.SetHealth(playerHP);
-        }
+        
     }
 }

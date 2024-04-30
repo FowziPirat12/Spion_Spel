@@ -11,17 +11,19 @@ public class GunTyps : ScriptableObject
     [Header("shooting")]
     public float damage;
     public float range;
+    public Vector3 recoil;
+    public float snappiness;
+    public float inaccutacyDistance;
 
     [Header("Reloading")]
     public int currentAmmo;
     public int magSize;
     public float fireRate;
-    public float reloadTime;
 
     [Header("Automatic")]
     public bool automatic;
     
     [Header("Typ")]
-    public bool multiShot;
-    public int shoots;
+    public bool shotgun;
+    public int bulletsPerShot;
 }
