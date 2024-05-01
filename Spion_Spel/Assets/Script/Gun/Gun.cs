@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Gun : MonoBehaviour
 {
@@ -113,6 +114,7 @@ public class Gun : MonoBehaviour
                         enemy.hp -= 10;
                         Debug.Log(enemy.hp);
                     }
+                    if(hit.transform.CompareTag("Level1"))SceneManager.LoadScene("2");
                     else
                     {
                         GameObject impactGO = Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
@@ -136,6 +138,7 @@ public class Gun : MonoBehaviour
                     enemy.hp -= 10;
                     Debug.Log(enemy.hp);
                 }
+                if(hit.transform.tag == "Level1")SceneManager.LoadScene(2);
                 else
                 {
                     GameObject impactGO = Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));

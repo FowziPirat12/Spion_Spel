@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - Gun
   - Recoil
+  - Level1
   layers:
   - Default
   - TransparentFX
