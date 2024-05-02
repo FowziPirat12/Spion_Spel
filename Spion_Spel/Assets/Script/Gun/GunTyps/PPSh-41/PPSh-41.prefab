@@ -223,7 +223,7 @@ GameObject:
   - component: {fileID: 3785255056502506084}
   m_Layer: 0
   m_Name: PPSh-41
-  m_TagString: Untagged
+  m_TagString: Gun
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -236,7 +236,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7047871747321378015}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.0000018099951, y: -0.00000004371139, z: 7.9178634e-14, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.7082849, y: 1.231, z: 2.96125}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -310,11 +310,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gun: {fileID: 11400000, guid: 182a55c0616f3d54f9ec55e5b9488f45, type: 2}
-  muzzleFlash: {fileID: 0}
+  muzzleFlash: {fileID: 7140866406520750791}
   impactEffect: {fileID: 5718853948431843555, guid: 87d8bdef5055f9f4e96d4889a3c0e4d3, type: 3}
   bloodEffect: {fileID: 3798789343081424786, guid: 3d4d6bf0e54144f4d92d8e6cfb9c05f4, type: 3}
   bulletTrail: {fileID: 4877130846260195296, guid: 1232dc8a87f236c4389041d4e40bdc0a, type: 3}
-  muzzlePos: {fileID: 0}
+  muzzlePos: {fileID: 4136787838634533300}
   fpsCam: {fileID: 0}
   ammo: {fileID: 0}
   damage: 0
@@ -322,6 +322,7 @@ MonoBehaviour:
   currentAmmo: 0
   magSize: 0
   mags: 0
+  animation: 0
   fireRate: 0
   inaccutacyDistance: 0
   bulletsPerShot: 0
