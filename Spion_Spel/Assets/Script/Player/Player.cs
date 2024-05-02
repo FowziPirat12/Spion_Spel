@@ -1,6 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -15,12 +13,13 @@ public class Player : MonoBehaviour
         playerHP = 100;
         healthBar = GameObject.FindGameObjectWithTag("HealthBar").GetComponent<HealthBar>();
         healthBar.SetMaxHealth(playerHP);
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(playerHP <= 0) SceneManager.LoadScene(1);
+        if(playerHP <= 0) SceneManager.LoadScene("Lobby Map");
     }
     public void TakeDamage(float damage)
     {

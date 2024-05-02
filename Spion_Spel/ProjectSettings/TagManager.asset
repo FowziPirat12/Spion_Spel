@@ -12,6 +12,7 @@ TagManager:
   - Ground
   - EndDoor
   - Ammo
+  - MainMenu
   layers:
   - Default
   - TransparentFX

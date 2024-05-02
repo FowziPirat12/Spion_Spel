@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -17,6 +14,6 @@ public class EndChest : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Vector3.Distance(player.position, transform.position) <= 1.5f && Input.GetKeyDown(KeyCode.E)) SceneManager.LoadScene(1);;
+        if(Vector3.Distance(player.position, transform.position) <= 1.5f && Input.GetKeyDown(KeyCode.E)) SceneManager.LoadScene("Lobby Map");;
     }
 }

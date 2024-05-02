@@ -1,7 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -115,7 +113,7 @@ public class Gun : MonoBehaviour
                         enemy.hp -= damage;
                         //Debug.Log(enemy.hp);
                     }
-                    if(hit.transform.CompareTag("Level1"))SceneManager.LoadScene("2");
+                    if(hit.transform.CompareTag("Level1"))SceneManager.LoadScene(3);
                     else
                     {
                         GameObject impactGO = Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
@@ -143,7 +141,16 @@ public class Gun : MonoBehaviour
                     enemy.hp -= damage;
                     Debug.Log(enemy.hp);
                 }
-                if(hit.transform.tag == "Level1")SceneManager.LoadScene(2);
+                if(hit.transform.tag == "Level1")
+                {
+                    Cursor.lockState = CursorLockMode.None;
+                    SceneManager.LoadScene("Tutorial");
+                }
+                else if(hit.transform.tag == "MainMenu")
+                {
+                    Cursor.lockState = CursorLockMode.None;
+                    SceneManager.LoadScene("MainMenu");
+                }
                 else
                 {
                     GameObject impactGO = Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));

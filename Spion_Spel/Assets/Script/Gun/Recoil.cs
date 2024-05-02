@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Recoil : MonoBehaviour
@@ -7,7 +5,7 @@ public class Recoil : MonoBehaviour
 
     private Vector3 currentRotation;
     private Vector3 targetRotation;
-    private Gun gun;
+    public Gun gun;
     public float recoilX;
     public float recoilY;
     public float recoilZ;
