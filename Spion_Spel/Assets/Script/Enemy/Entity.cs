@@ -4,15 +4,19 @@ using UnityEngine;
 
 public class Entity : MonoBehaviour
 {
-    public int hp;
+    protected Player player;
+    public float hp;
+    [SerializeField]protected bool hit;
+    protected int dmg;
     // Start is called before the first frame update
-       void Start()
+    public virtual void Start()
     {
-        hp = 2000;
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        hit = false;
     }
 
     // Update is called once per frame
-    void Update()
+    public virtual void Update()
     {
         if(hp <= 0){
             Destroy(this.gameObject);

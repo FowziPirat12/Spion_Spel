@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -18,6 +20,11 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(playerHP <= 0) SceneManager.LoadScene(1);
+    }
+    public void TakeDamage(float damage)
+    {
+        playerHP-=damage;
+        healthBar.SetHealth(playerHP);
     }
 }

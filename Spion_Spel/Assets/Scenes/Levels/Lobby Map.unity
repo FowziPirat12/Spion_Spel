@@ -63330,7 +63330,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 47f26d121ee8da9449c0f1d05cc141c5, type: 2}
+  - {fileID: 2100000, guid: fb037661ea2cd30409e7b6f47f7eb3ce, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -63996,7 +63996,7 @@ GameObject:
   - component: {fileID: 1082439144}
   m_Layer: 5
   m_Name: Ammo
-  m_TagString: Untagged
+  m_TagString: Ammo
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

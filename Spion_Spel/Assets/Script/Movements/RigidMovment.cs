@@ -46,7 +46,7 @@ public class RigidMovment : MonoBehaviour
     void Move()
     {
         if(Input.GetKeyDown(KeyCode.LeftShift)) speed *= 1.5f;
-        if(Input.GetKeyUp(KeyCode.LeftShift)) speed /= 1.5f;
+        else speed = 7;
         Vector3 currentVelocity = rb.velocity;
         Vector3 targetVelocity = new Vector3(move.x, 0, move.y);
         targetVelocity *= speed;
@@ -72,6 +72,7 @@ public class RigidMovment : MonoBehaviour
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        speed = 7;
     }
 
     // Update is called once per frame

@@ -43,6 +43,7 @@ public class Gun : MonoBehaviour
         currentAmmo = gun.currentAmmo;
         magSize = gun.magSize;
         animation = gun.animation;
+        ammo = GameObject.FindGameObjectWithTag("Ammo").GetComponent<TMP_Text>();
         ammo.text = $"{currentAmmo}/{magSize}";
         fireRate = gun.fireRate;
         snappiness = gun.snappiness;
@@ -111,8 +112,8 @@ public class Gun : MonoBehaviour
                     {
                         GameObject impactGO = Instantiate(bloodEffect, hit.point, Quaternion.LookRotation(hit.normal));
                         Destroy(impactGO, .5f);
-                        enemy.hp -= 10;
-                        Debug.Log(enemy.hp);
+                        enemy.hp -= damage;
+                        //Debug.Log(enemy.hp);
                     }
                     if(hit.transform.CompareTag("Level1"))SceneManager.LoadScene("2");
                     else
@@ -121,6 +122,10 @@ public class Gun : MonoBehaviour
                         Destroy(impactGO, .5f);
                     }
                     CreatTrail(hit.point);
+
+                    if(hit.transform.tag == "Enemy")   Debug.Log("1");
+                    if(hit.transform.tag == "Ground")   Debug.Log("2");
+                    else Debug.Log("Not");
                 }
                 else CreatTrail(fpsCam.transform.position + shootingDir * range);
             }
@@ -135,7 +140,7 @@ public class Gun : MonoBehaviour
                 {
                     GameObject impactGO = Instantiate(bloodEffect, hit.point, Quaternion.LookRotation(hit.normal));
                     Destroy(impactGO, .5f);
-                    enemy.hp -= 10;
+                    enemy.hp -= damage;
                     Debug.Log(enemy.hp);
                 }
                 if(hit.transform.tag == "Level1")SceneManager.LoadScene(2);

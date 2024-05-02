@@ -9,6 +9,9 @@ TagManager:
   - Gun
   - Recoil
   - Level1
+  - Ground
+  - EndDoor
+  - Ammo
   layers:
   - Default
   - TransparentFX
