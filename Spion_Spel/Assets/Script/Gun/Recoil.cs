@@ -1,3 +1,4 @@
+
 using UnityEngine;
 
 public class Recoil : MonoBehaviour
@@ -5,7 +6,7 @@ public class Recoil : MonoBehaviour
 
     private Vector3 currentRotation;
     private Vector3 targetRotation;
-    public Gun gun;
+    private Gun gun;
     public float recoilX;
     public float recoilY;
     public float recoilZ;
@@ -19,6 +20,7 @@ public class Recoil : MonoBehaviour
         recoilX = gun.gun.recoil.x;
         recoilY = gun.gun.recoil.y;
         recoilZ = gun.gun.recoil.z;
+        returnSpeed = 2;
     }
 
     // Update is called once per frame

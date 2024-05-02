@@ -52,6 +52,7 @@ public class Gun : MonoBehaviour
         shotgun = gun.shotgun;
         timer = 0;
         muzzleFlash.SetActive(false);
+        reloading = false;
     }
 
     // Update is called once per frame
